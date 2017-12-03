@@ -1,4 +1,4 @@
-package generics.examples.comparator;
+package generics.examples.passing.parameter.toclass;
 
 public class Person {
 	private String name;

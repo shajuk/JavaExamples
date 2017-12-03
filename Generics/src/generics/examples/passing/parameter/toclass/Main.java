@@ -1,4 +1,4 @@
-package generics.examples.comparator;
+package generics.examples.passing.parameter.toclass;
 
 import java.util.ArrayList;
 import java.util.Collections;
