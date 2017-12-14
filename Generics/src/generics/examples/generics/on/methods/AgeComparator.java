@@ -1,5 +1,7 @@
 package generics.examples.generics.on.methods;
 
+import generics.examples.Person;
+
 import java.util.Comparator;
 
 public class AgeComparator implements Comparator<Person>{
