@@ -4,7 +4,6 @@ import generics.examples.Employee;
 import generics.examples.Person;
 import generics.examples.Student;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,13 +12,34 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class PersonLoader {
+public class PersonSaverLoader {
 	private final RandomAccessFile file;
 
-	public PersonLoader(File file) throws FileNotFoundException {
+	public PersonSaverLoader(File file) throws FileNotFoundException {
 		this.file = new RandomAccessFile(file, "rw");
 	}
 
+	//Upperbound WildCard Example
+	//PECS rule says- Producer Extends Consumer Super
+	//In this case from List's prespective, list is producer and poping out values
+	//and for poping out values from list use extends
+	public void saveAll(final List<? extends Person> persons) throws IOException{
+		for(Person p:persons){
+			save(p);
+		}
+	}
+	
+	//Lowerbound WildCard Example
+	//PECS rule says- Producer Extends Consumer Super
+	//In this case from List's prespective, list is consuming values and adding values to itself
+	//and for adding values use super
+	public void loadAll(List<? super Person> persons){
+		Person p;
+		while((p=load())!=null){
+			persons.add(p);
+		}
+	}
+		
 	public Person load() {
 		try {
 			
@@ -61,10 +81,31 @@ public class PersonLoader {
 		return null;
 	}
 	
-	public void loadAll(List<? super Person> persons){
-		Person p;
-		while((p=load())!=null){
-			persons.add(p);
+	public void save(Person person) throws IOException{
+		if(null!=person){
+			Employee e=null;
+			Student s=null;
+			if(person.getType().contains("Employee")){
+				e=(Employee)person;
+				file.writeUTF(e.getClass().getName());
+				file.writeUTF(e.getName());
+				file.writeUTF(e.getAge().toString());
+				file.writeUTF(e.getEmpid());
+			}else if(person.getType().contains("Student")){
+				s=(Student)person;
+				file.writeUTF(s.getClass().getName());
+				file.writeUTF(s.getName());
+				file.writeUTF(s.getAge().toString());
+				file.writeUTF(s.getStudentId());
+			}else{
+				file.writeUTF(person.getType()); 
+				file.writeUTF(person.getName());
+				file.writeUTF(person.getAge().toString());
+				
+			}
+			
 		}
 	}
+	
+	
 }

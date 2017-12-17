@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.html.ListView;
 
 import org.junit.*;
 
@@ -20,14 +19,14 @@ import static org.junit.Assert.*;
 public class WildCardExampleTest {
 	
 	private File file;
-	private PersonSaver saver;
-	private PersonLoader loader;
+	private PersonSaverLoader saver;
+	private PersonSaverLoader loader;
 	
 	@Before
 	public void setUp() throws IOException{
 		file=File.createTempFile("tmp", "people");
-		saver=new PersonSaver(file);
-		loader=new PersonLoader(file);
+		saver=new PersonSaverLoader(file);
+		loader=new PersonSaverLoader(file);
 	}
 	
 	@After
@@ -39,7 +38,7 @@ public class WildCardExampleTest {
 	
 	@Test
 	public void cannotLoadFromEmptyFile() throws FileNotFoundException{
-		PersonLoader ploader=new PersonLoader(file);
+		PersonSaverLoader ploader=new PersonSaverLoader(file);
 		assertNull(ploader.load());
 	}
 	

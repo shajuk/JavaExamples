@@ -14,8 +14,8 @@ public class WildCardExamples {
 	
 	public static void main(String[] args) throws IOException {
 		File file=File.createTempFile("tmp", "people");
-		PersonSaver saver=new PersonSaver(file);
-		PersonLoader loader=new PersonLoader(file);
+		PersonSaverLoader saver=new PersonSaverLoader(file);
+		PersonSaverLoader loader=new PersonSaverLoader(file);
 		
 		List<Person> persons=new ArrayList<>();
 		Employee e1=new Employee("Rahul",32,"e101");
